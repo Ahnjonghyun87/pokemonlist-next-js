@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import QueryProvider from "./provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,14 +20,16 @@ export default function RootLayout({
         <header className="	 bg-cyan-400 text-center h-14 font-extrabold flex items-center justify-center">
           my custom pokemon list
         </header>
-        <nav className="text-center space-x-4 bg-cyan-200 flex items-center justify-center ">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/blog">Blog</a>
-        </nav>
+        <QueryProvider>
+          <nav className="text-center space-x-4 bg-cyan-200 flex items-center justify-center ">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/blog">Blog</a>
+          </nav>
 
-        {children}
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
