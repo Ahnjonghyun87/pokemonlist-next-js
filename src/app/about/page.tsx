@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "/public/images/logo.png";
+
+export const metadata: Metadata = {
+  title: "포켓몬에 관하여",
+  description: "포켓몬이란 뭘까요?",
+};
 
 const About = () => {
   return (
