@@ -2,8 +2,14 @@ import { fetchPokemonData } from "@/apis/pokemon";
 import { typeColors } from "@/constants/typeColors";
 import { Pokemon } from "@/types";
 import classNames from "classnames";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "포켓몬 디테일 페이지",
+  description: "포켓몬의 상세한 정보 페이지입니다",
+};
 
 const PokemonDetailPage = async ({ params }: { params: { id: string } }) => {
   const pokemon: Pokemon = await fetchPokemonData(params.id);
