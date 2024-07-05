@@ -101,28 +101,3 @@ const PokemonDetailPage = async ({ params }: { params: { id: string } }) => {
 };
 
 export default PokemonDetailPage;
-
-{
-  /* <h1 className="p-4 font-bold">스탯:</h1>
-
-{pokemon.stats.map((stat) => (
-  <div
-    key={stat.stat.name}
-    className="border-2 border-white-300 bg-black-500 p-2 m-2 rounded text-center"
-  >
-    {stat.stat.korean_name}
-  </div>
-))} */
-}
-
-{
-  /* <h1 className="p-4 font-bold">타입:</h1>
-{pokemon.types.map((type) => (
-  <div
-    key={type.type.name}
-    className="border-2 border-white-300 bg-sky-500 p-2 m-2 rounded text-center"
-  >
-    {type.type.korean_name}
-  </div>
-))} */
-}
