@@ -24,8 +24,6 @@ export default function RootLayout({
           <nav className="text-center space-x-4 bg-cyan-200 flex items-center justify-center ">
             <a href="/">Home</a>
             <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/blog">Blog</a>
           </nav>
 
           {children}

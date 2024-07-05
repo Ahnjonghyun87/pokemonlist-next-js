@@ -30,14 +30,9 @@ const PokemonDetailPage = async ({ params }: { params: { id: string } }) => {
             <p>무게 {pokemon.weight / 10} kg</p>
           </div>
 
-          {pokemon.cries && (pokemon.cries.latest || pokemon.cries.legacy) && (
+          {pokemon.cries && pokemon.cries.latest && (
             <audio controls className="mt-4">
-              {pokemon.cries.latest && (
-                <source src={pokemon.cries.latest} type="audio/ogg" />
-              )}
-              {!pokemon.cries.latest && pokemon.cries.legacy && (
-                <source src={pokemon.cries.legacy} type="audio/ogg" />
-              )}
+              <source src={pokemon.cries.latest} type="audio/ogg" />
               Your browser does not support the audio element.
             </audio>
           )}
@@ -87,7 +82,6 @@ const PokemonDetailPage = async ({ params }: { params: { id: string } }) => {
               </div>
             ))}
           </div>
-
           <Link
             href="/"
             className="text-center border-2 border-purple-400  bg-cyan-800 hover:bg-sky-400 text-white p-2 m-2 rounded "
