@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import logo from "/public/images/logo.png";
 
 const About = () => {
@@ -55,6 +56,14 @@ const About = () => {
             페이지를 참고하세요.
           </p>
         </div>
+      </div>
+      <div className="flex justify-center mt-4">
+        <Link
+          href="/"
+          className="text-center border-2 border-purple-400 bg-cyan-800 hover:bg-sky-400 text-white p-2 rounded"
+        >
+          뒤로가기
+        </Link>
       </div>
     </div>
   );
