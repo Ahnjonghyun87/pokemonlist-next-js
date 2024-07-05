@@ -1,29 +1,37 @@
 "use client";
 
+import Pagination from "@/components/Pagination";
 import { Pokemon } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
-const ITEM_PER_PAGE = 300;
+const ITEMS_PER_PAGE = 30;
 
 const PokemonListPage = () => {
-  const {
-    data: pokemons,
-    isPending,
-    error,
-  } = useQuery<Pokemon[], AxiosError, Pokemon[], [string]>({
-    queryKey: ["pokemons"],
+  const [page, setPage] = useState(1);
 
+  const { data, isLoading, error } = useQuery<
+    {
+      pokemons: Pokemon[];
+      totalCount: number;
+    },
+    AxiosError
+  >({
+    queryKey: ["pokemons", page],
     queryFn: async () => {
-      const response = await fetch("/api/pokemon");
-      return response.json();
+      const response = await fetch(
+        `/api/pokemon?_page=${page}&_limit=${ITEMS_PER_PAGE}`
+      );
+      const result = await response.json();
+      return { pokemons: result.pokemons, totalCount: result.totalCount };
     },
     staleTime: 5 * 60 * 1000, // 5분
   });
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center">
         <Image
@@ -39,10 +47,10 @@ const PokemonListPage = () => {
   }
 
   if (error) {
-    return <div>무언가 잘못되었습니다{error.message}</div>;
+    return <div>무언가 잘못되었습니다: {error.message}</div>;
   }
 
-  if (!Array.isArray(pokemons)) {
+  if (!data || !Array.isArray(data.pokemons)) {
     return (
       <div className="flex flex-col justify-center items-center">
         <p className="text-xl font-semibold">데이터가 올바르지 않습니다.</p>
@@ -50,9 +58,12 @@ const PokemonListPage = () => {
     );
   }
 
+  const { pokemons, totalCount } = data;
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-2 sm:grid-cols3 md:grid-cols-4 lg:grid-cols-6 gap-4 item-center">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 item-center">
         {pokemons.map((pokemon) => (
           <div
             key={pokemon.id}
@@ -71,6 +82,7 @@ const PokemonListPage = () => {
           </div>
         ))}
       </div>
+      <Pagination totalPages={totalPages} page={page} setPage={setPage} />
     </div>
   );
 };
