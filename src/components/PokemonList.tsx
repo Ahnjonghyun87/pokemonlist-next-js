@@ -1,12 +1,12 @@
 "use client";
+
 import { Pokemon } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-const PokemonListPage: React.FC = () => {
+const PokemonListPage = (): JSX.Element => {
   const {
     data: pokemons,
     isPending,
@@ -33,6 +33,10 @@ const PokemonListPage: React.FC = () => {
         <p className="text-xl font-semibold">불러오는 중..</p>
       </div>
     );
+  }
+
+  if (error) {
+    return <div>무언가 잘못되었습니다{error.message}</div>;
   }
 
   // const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
