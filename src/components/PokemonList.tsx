@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import Link from "next/link";
 
-const ITEM_PER_PAGE = 30;
+const ITEM_PER_PAGE = 300;
 
 const PokemonListPage = () => {
   const {
