@@ -13,7 +13,7 @@ const ITEMS_PER_PAGE = 30;
 const PokemonListPage = () => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, error } = useQuery<
+  const { data, isPending, error } = useQuery<
     {
       pokemons: Pokemon[];
       totalCount: number;
@@ -31,7 +31,7 @@ const PokemonListPage = () => {
     staleTime: 5 * 60 * 1000, // 5분
   });
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="flex flex-col justify-center items-center">
         <Image
