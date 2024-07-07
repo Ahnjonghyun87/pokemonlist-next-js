@@ -9,7 +9,7 @@ import { useInView } from "react-intersection-observer";
 
 const ITEMS_PER_PAGE = 30;
 
-const PokemonListPage = ({ params }: { params: { id: string } }) => {
+const PokemonListPage = () => {
   const {
     data: pokemons,
     isPending,
@@ -20,14 +20,12 @@ const PokemonListPage = ({ params }: { params: { id: string } }) => {
   } = useInfiniteQuery<Pokemon[], AxiosError, Pokemon[], [string], number>({
     queryKey: ["Pokemons"],
     initialPageParam: 1,
-    queryFn: async ({ pageParam }) => {
-      const response = await fetch("/api/pokemon", {
-        params: { _page: pageParam, _limit = ITEMS_PER_PAGE },
-      });
-
-      return {
-        pokemons: response.json(),
-      };
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await fetch(
+        `/api/pokemon?_page=${pageParam}&_limit=${ITEMS_PER_PAGE}`
+      );
+      const pokemons = await response.json();
+      return pokemons;
     },
 
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
