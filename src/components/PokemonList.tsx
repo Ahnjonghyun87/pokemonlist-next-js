@@ -9,7 +9,7 @@ import { useInView } from "react-intersection-observer";
 
 const ITEMS_PER_PAGE = 30;
 
-const PokemonListPage = () => {
+const PokemonListPage = ({ params }: { params: { id: string } }) => {
   const {
     data: pokemons,
     isPending,
@@ -67,12 +67,14 @@ const PokemonListPage = () => {
   }
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 item-center">
-        {pokemons.map((pokemon) => (
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 item-center">
+      {pokemons.map((pokemon, idx) => {
+        const isLastItem = pokemons.length - 1 === idx;
+        return (
           <div
             key={pokemon.id}
             className="pokemon p-4 border rounded-lg flex flex-col items-center"
+            ref={isLastItem ? ref : null}
           >
             <Link href={`/pokemon/${pokemon.id}`}>
               <Image
@@ -85,13 +87,8 @@ const PokemonListPage = () => {
               <p>도감번호: {pokemon.id}</p>
             </Link>
           </div>
-        ))}
-      </div>
-      {hasNextPage && (
-        <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "로딩중..." : "더보기"}
-        </button>
-      )}
+        );
+      })}
     </div>
   );
 };
