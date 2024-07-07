@@ -28,14 +28,6 @@ const PokemonListPage = () => {
       return pokemons;
     },
 
-    // queryFn: async () => {
-    //   const response = await fetch(
-    //     `/api/pokemon?_page=${page}&_limit=${ITEMS_PER_PAGE}`
-    //   );
-    //   const result = await response.json();
-    //   return { pokemons: result.pokemons, totalCount: result.totalCount };
-    // },
-
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       const nextPage = lastPageParam + 1;
       return lastPage.length === ITEMS_PER_PAGE ? nextPage : undefined;
@@ -100,3 +92,11 @@ const PokemonListPage = () => {
 };
 
 export default PokemonListPage;
+
+// queryFn: async () => {
+//   const response = await fetch(
+//     `/api/pokemon?_page=${page}&_limit=${ITEMS_PER_PAGE}`
+//   );
+//   const result = await response.json();
+//   return { pokemons: result.pokemons, totalCount: result.totalCount };
+// },
