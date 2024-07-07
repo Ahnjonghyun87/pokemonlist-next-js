@@ -20,13 +20,21 @@ const PokemonListPage = () => {
   } = useInfiniteQuery<Pokemon[], AxiosError, Pokemon[], [string], number>({
     queryKey: ["Pokemons"],
     initialPageParam: 1,
-    queryFn: async ({ pageParam = 1 }) => {
+    queryFn: async ({ pageParam }) => {
       const response = await fetch(
         `/api/pokemon?_page=${pageParam}&_limit=${ITEMS_PER_PAGE}`
       );
       const pokemons = await response.json();
       return pokemons;
     },
+
+    // queryFn: async () => {
+    //   const response = await fetch(
+    //     `/api/pokemon?_page=${page}&_limit=${ITEMS_PER_PAGE}`
+    //   );
+    //   const result = await response.json();
+    //   return { pokemons: result.pokemons, totalCount: result.totalCount };
+    // },
 
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       const nextPage = lastPageParam + 1;
